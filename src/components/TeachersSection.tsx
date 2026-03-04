@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { ScrollReveal } from "@/hooks/useScrollReveal";
+import TiltCard from "@/components/TiltCard";
 import { Award } from "lucide-react";
 
 const teachers = [
@@ -20,33 +21,19 @@ const TeachersSection = () => (
 
     <div className="container mx-auto relative">
       <div className="text-center mb-12">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="section-title"
-        >
-          Our Dedicated Faculty
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="section-subtitle"
-        >
-          Experienced educators committed to nurturing every student
-        </motion.p>
+        <ScrollReveal animation="rotate-in">
+          <h2 className="section-title">Our Dedicated Faculty</h2>
+        </ScrollReveal>
+        <ScrollReveal animation="rotate-in" delay={80}>
+          <p className="section-subtitle">
+            Experienced educators committed to nurturing every student
+          </p>
+        </ScrollReveal>
       </div>
 
       {/* Principal card */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="max-w-md mx-auto mb-12"
-      >
-        <div className="relative rounded-2xl overflow-hidden navy-gradient p-8 text-center shadow-2xl border-2 border-gold/30">
+      <ScrollReveal animation="slide-up-spring" className="max-w-md mx-auto mb-12">
+        <TiltCard glareColor="hsl(var(--gold))" tiltDeg={6} className="relative rounded-2xl overflow-hidden navy-gradient p-8 text-center shadow-2xl border-2 border-gold/30">
           <Award className="w-10 h-10 text-gold mx-auto mb-4" />
           <img
             src="/science-fair/487402671_1124568666381135_173436738163303464_n.jpg"
@@ -58,32 +45,32 @@ const TeachersSection = () => (
           <p className="text-white/80 text-sm mt-2">
             Leading CRM High School with vision, passion, and dedication to academic excellence.
           </p>
-        </div>
-      </motion.div>
+        </TiltCard>
+      </ScrollReveal>
 
       {/* Teacher grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {teachers.filter((t) => !t.featured).map((t, i) => (
-          <motion.div
-            key={t.name}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
-            whileHover={{ y: -8, rotateY: 5, rotateX: 5 }}
-            className="rounded-2xl bg-card p-6 text-center shadow-lg border border-border hover:shadow-xl transition-shadow"
-            style={{ transformStyle: "preserve-3d" }}
-          >
-            <div className="w-16 h-16 rounded-full mx-auto mb-3 bg-secondary flex items-center justify-center">
-              <span className="font-display text-xl font-bold text-primary">
-                {t.name.split(" ").map((w) => w[0]).join("")}
-              </span>
-            </div>
-            <h4 className="font-display font-bold text-foreground text-sm">{t.name}</h4>
-            <p className="text-gold text-xs font-semibold mt-1">{t.role}</p>
-            <p className="text-muted-foreground text-xs mt-1">{t.subject}</p>
-          </motion.div>
-        ))}
+        {teachers.filter((t) => !t.featured).map((t, i) => {
+          const anim = i % 3 === 0 ? "fade-left" : i % 3 === 1 ? "slide-up-spring" : "fade-right";
+          return (
+            <ScrollReveal key={t.name} animation={anim} delay={i * 120}>
+              <TiltCard
+                className="rounded-2xl bg-card p-6 text-center shadow-lg border border-border hover:shadow-xl transition-shadow h-full"
+                glareColor={i % 3 === 0 ? "hsl(var(--primary))" : i % 3 === 1 ? "hsl(var(--gold))" : "hsl(var(--accent))"}
+                tiltDeg={5}
+              >
+                <div className="w-16 h-16 rounded-full mx-auto mb-3 bg-secondary flex items-center justify-center">
+                  <span className="font-display text-xl font-bold text-primary">
+                    {t.name.split(" ").map((w) => w[0]).join("")}
+                  </span>
+                </div>
+                <h4 className="font-display font-bold text-foreground text-sm">{t.name}</h4>
+                <p className="text-gold text-xs font-semibold mt-1">{t.role}</p>
+                <p className="text-muted-foreground text-xs mt-1">{t.subject}</p>
+              </TiltCard>
+            </ScrollReveal>
+          );
+        })}
       </div>
     </div>
   </section>

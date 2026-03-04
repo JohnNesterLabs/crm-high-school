@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
-import { Trophy, Star } from "lucide-react";
 import { useState } from "react";
+import { ScrollReveal } from "@/hooks/useScrollReveal";
+import { Trophy, Star } from "lucide-react";
 
 const toppers = [
   { name: "Priya Sharma", class: "12th", percentage: "96.4%", stream: "Science" },
@@ -14,16 +14,13 @@ const toppers = [
 const FlipCard = ({ topper, i }: { topper: typeof toppers[0]; i: number }) => {
   const [flipped, setFlipped] = useState(false);
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: i * 0.12 }}
-      className="perspective-1000 h-52 cursor-pointer"
-      onMouseEnter={() => setFlipped(true)}
-      onMouseLeave={() => setFlipped(false)}
-      onClick={() => setFlipped(!flipped)}
-    >
+    <ScrollReveal animation="flip-x" delay={i * 200} duration={0.6}>
+      <div
+        className="perspective-1000 h-52 cursor-pointer"
+        onMouseEnter={() => setFlipped(true)}
+        onMouseLeave={() => setFlipped(false)}
+        onClick={() => setFlipped(!flipped)}
+      >
       <div
         className="relative w-full h-full transition-transform duration-700"
         style={{
@@ -59,7 +56,8 @@ const FlipCard = ({ topper, i }: { topper: typeof toppers[0]; i: number }) => {
           <p className="text-accent-foreground/60 text-sm">Class {topper.class} - 2025</p>
         </div>
       </div>
-    </motion.div>
+      </div>
+    </ScrollReveal>
   );
 };
 
@@ -81,31 +79,19 @@ const ResultsSection = () => (
 
     <div className="container mx-auto relative">
       <div className="text-center mb-12">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="inline-flex items-center gap-2 gold-gradient text-accent-foreground px-6 py-2 rounded-full font-semibold text-sm mb-6"
-        >
-          <Trophy className="w-4 h-4" /> Best Results in Block & District
-        </motion.div>
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="section-title"
-        >
-          Academic Excellence
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="section-subtitle"
-        >
-          Our students consistently achieve outstanding results — hover over cards to reveal scores!
-        </motion.p>
+        <ScrollReveal animation="zoom-in">
+          <div className="inline-flex items-center gap-2 gold-gradient text-accent-foreground px-6 py-2 rounded-full font-semibold text-sm mb-6">
+            <Trophy className="w-4 h-4" /> Best Results in Block & District
+          </div>
+        </ScrollReveal>
+        <ScrollReveal animation="zoom-in" delay={80}>
+          <h2 className="section-title">Academic Excellence</h2>
+        </ScrollReveal>
+        <ScrollReveal animation="zoom-in" delay={160}>
+          <p className="section-subtitle">
+            Our students consistently achieve outstanding results — hover over cards to reveal scores!
+          </p>
+        </ScrollReveal>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

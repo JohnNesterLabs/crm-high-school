@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { ScrollReveal } from "@/hooks/useScrollReveal";
+import TiltCard from "@/components/TiltCard";
 import { Calendar, Clock, Play } from "lucide-react";
 import VideoModal from "@/components/VideoModal";
 import { TEACHERS_DAY_VIDEO_URL } from "@/lib/constants";
@@ -31,35 +32,20 @@ const EventsSection = () => {
 
     <div className="container mx-auto relative">
       <div className="text-center mb-12">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="section-title"
-        >
-          Upcoming Events
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="section-subtitle"
-        >
-          Stay updated with school activities and important dates
-        </motion.p>
+        <ScrollReveal animation="zoom-in">
+          <h2 className="section-title">Upcoming Events</h2>
+        </ScrollReveal>
+        <ScrollReveal animation="zoom-in" delay={80}>
+          <p className="section-subtitle">
+            Stay updated with school activities and important dates
+          </p>
+        </ScrollReveal>
       </div>
 
       <div className="max-w-3xl mx-auto space-y-6">
         {events.map((evt, i) => (
-          <motion.div
-            key={evt.title}
-            initial={{ opacity: 0, x: i % 2 === 0 ? -60 : 60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
-            className="relative flex flex-col sm:flex-row sm:items-center gap-4 p-6 rounded-2xl bg-card shadow-lg border border-border hover:shadow-xl transition-shadow"
-          >
+          <ScrollReveal key={evt.title} animation={i % 2 === 0 ? "fade-left" : "fade-right"} delay={i * 100} duration={0.5}>
+            <TiltCard tiltDeg={4} className="relative flex flex-col sm:flex-row sm:items-center gap-4 p-6 rounded-2xl bg-card shadow-lg border border-border hover:shadow-xl transition-shadow">
             {evt.upcoming && (
               <span className="absolute top-4 right-4 flex items-center gap-1">
                 <span className="w-2.5 h-2.5 rounded-full bg-destructive animate-pulse" />
@@ -95,7 +81,8 @@ const EventsSection = () => {
                 <Play className="w-4 h-4" /> Watch video
               </button>
             )}
-          </motion.div>
+            </TiltCard>
+          </ScrollReveal>
         ))}
       </div>
     </div>

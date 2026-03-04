@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ScrollReveal } from "@/hooks/useScrollReveal";
 import { X, Play } from "lucide-react";
 import VideoModal from "@/components/VideoModal";
 import { TEACHERS_DAY_VIDEO_URL, SPORTS_DAY_VIDEO_URL, INDEPENDENCE_DAY_POST_URL } from "@/lib/constants";
@@ -105,33 +106,19 @@ const GallerySection = () => {
     <section id="gallery" className="section-padding bg-secondary relative overflow-hidden">
       <div className="container mx-auto relative">
         <div className="text-center mb-8">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="section-title"
-          >
-            School Gallery
-          </motion.h2>
-          <div className="w-16 h-0.5 bg-gold mx-auto mt-2 mb-4" aria-hidden />
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="section-subtitle"
-          >
-            Glimpses of life at CRM High School
-          </motion.p>
+          <ScrollReveal animation="blur-in">
+            <h2 className="section-title">School Gallery</h2>
+          </ScrollReveal>
+          <ScrollReveal animation="blur-in" delay={60}>
+            <div className="w-16 h-0.5 bg-gold mx-auto mt-2 mb-4" aria-hidden />
+            <p className="section-subtitle">
+              Glimpses of life at CRM High School
+            </p>
+          </ScrollReveal>
         </div>
 
         {/* Filter tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10"
-        >
+        <ScrollReveal animation="fade-up" delay={80} className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10">
           {TABS.map((tab) => (
             <button
               key={tab.id}
@@ -146,18 +133,14 @@ const GallerySection = () => {
               {tab.label}
             </button>
           ))}
-        </motion.div>
+        </ScrollReveal>
 
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
           {filteredItems.map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="relative group cursor-pointer break-inside-avoid rounded-xl overflow-hidden"
-              onClick={() =>
+            <ScrollReveal key={i} animation="scale-fade" delay={i * 80}>
+              <div
+                className="relative group cursor-pointer break-inside-avoid rounded-xl overflow-hidden"
+                onClick={() =>
                 item.type === "video"
                   ? setVideoModal({ url: item.videoUrl, title: item.label })
                   : setLightbox(item.src)
@@ -180,7 +163,8 @@ const GallerySection = () => {
                   {item.label}
                 </span>
               </div>
-            </motion.div>
+            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>
