@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { X, Play } from "lucide-react";
+import VideoModal from "@/components/VideoModal";
+import { TEACHERS_DAY_VIDEO_URL, SPORTS_DAY_VIDEO_URL, INDEPENDENCE_DAY_POST_URL } from "@/lib/constants";
 
 import heroSchool from "@/assets/hero-school.jpg";
 import heroFunction from "@/assets/hero-function.jpg";
@@ -8,22 +10,101 @@ import heroSports from "@/assets/hero-sports.jpg";
 import heroTrip from "@/assets/hero-trip.jpg";
 import heroClassroom from "@/assets/hero-classroom.jpg";
 
-const images = [
-  { src: heroClassroom, label: "Classrooms", category: "Classrooms" },
-  { src: heroFunction, label: "Annual Function", category: "Functions" },
-  { src: heroSports, label: "Sports Day", category: "Sports" },
-  { src: heroTrip, label: "Educational Trip", category: "Trips" },
-  { src: heroSchool, label: "Campus View", category: "Campus" },
-  { src: heroFunction, label: "Cultural Program", category: "Cultural" },
+type GalleryImage = { type: "image"; src: string; label: string; category: string };
+type GalleryVideo = { type: "video"; src: string; label: string; category: string; videoUrl: string };
+type GalleryItem = GalleryImage | GalleryVideo;
+
+/** Images from public/pratapgarh-farms – shown in Trips tab */
+const PRATAPGARH_FARMS_IMAGES = [
+  "599950967_1351349633703036_3562405166263323873_n.jpg",
+  "600060141_1351349507036382_4202224432977843835_n.jpg",
+  "600200865_1351349683703031_808642536197396901_n.jpg",
+  "600218162_1351349563703043_1555991633133989798_n.jpg",
+  "600219291_1351349723703027_8971325457463047308_n.jpg",
+  "600235903_1351349620369704_4578484529803510045_n.jpg",
+  "600285143_1351349557036377_3730686630460817465_n.jpg",
+  "600302274_1351349517036381_6174114233264534583_n.jpg",
+  "600322929_1351349673703032_2985449104393384695_n.jpg",
+].map((file, index) => ({
+  type: "image" as const,
+  src: `/pratapgarh-farms/${file}`,
+  label: `Pratapgarh Farms Trip ${index + 1}`,
+  category: "Trips",
+}));
+
+/** Images from public/science-fair – shown in Science Fair tab */
+const SCIENCE_FAIR_IMAGES = [
+  "487226035_1124576766380325_2406162380215034159_n.jpg",
+  "487229323_1124577213046947_5643163650061982364_n.jpg",
+  "487315723_1124578503046818_3011910898737583511_n.jpg",
+  "487379005_1124577403046928_6264819270321948204_n.jpg",
+  "487382628_1124576823046986_2858397956041348199_n.jpg",
+  "487402671_1124568666381135_173436738163303464_n.jpg",
+  "487510155_1124578426380159_4628891249161532437_n.jpg",
+  "487538504_1124577229713612_7794154668176539038_n.jpg",
+  "487827499_1124577066380295_5551181965969942783_n.jpg",
+  "487931494_1124576846380317_6832499681089763673_n.jpg",
+  "487968249_1124576573047011_1844832770067797033_n.jpg",
+  "488049611_1124580119713323_895051258928260110_n.jpg",
+].map((file, index) => ({
+  type: "image" as const,
+  src: `/science-fair/${file}`,
+  label: `Science Fair ${index + 1}`,
+  category: "Science Fair",
+}));
+
+/** Images from public/sports – additional sports photos in Sports tab */
+const SPORTS_IMAGES = [
+  "491824771_1139063744931627_2906664502845220250_n.jpg",
+  "528667946_1234164505421550_6051709882716020254_n.jpg",
+  "529329332_1234164498754884_8341582617675253573_n.jpg",
+  "533086501_1241216168049717_3809744498261828298_n.jpg",
+  "533089583_1241216204716380_7706105120795646122_n.jpg",
+  "600322929_1351349673703032_2985449104393384695_n.jpg",
+].map((file, index) => ({
+  type: "image" as const,
+  src: `/sports/${file}`,
+  label: `Sports Gallery ${index + 1}`,
+  category: "Sports",
+}));
+
+const items: GalleryItem[] = [
+  { type: "video", src: heroFunction, label: "Teachers' Day", category: "Events", videoUrl: TEACHERS_DAY_VIDEO_URL },
+  { type: "image", src: heroClassroom, label: "Classrooms", category: "Classrooms" },
+  { type: "image", src: heroFunction, label: "Annual Function", category: "Functions" },
+  { type: "image", src: heroSports, label: "Sports Day", category: "Sports" },
+  { type: "video", src: heroSports, label: "Glimpse of Sports Day", category: "Sports", videoUrl: SPORTS_DAY_VIDEO_URL },
+  ...SPORTS_IMAGES,
+  { type: "image", src: heroTrip, label: "Educational Trip", category: "Trips" },
+  ...PRATAPGARH_FARMS_IMAGES,
+  ...SCIENCE_FAIR_IMAGES,
+  { type: "image", src: heroSchool, label: "Campus View", category: "Campus" },
+  { type: "image", src: heroFunction, label: "Cultural Program", category: "Cultural" },
+  { type: "video", src: heroFunction, label: "Glimpse of Independence Day celebrations and award ceremony for excellence", category: "Cultural", videoUrl: INDEPENDENCE_DAY_POST_URL },
 ];
+
+const TABS = [
+  { id: "all", label: "All" },
+  { id: "Classrooms", label: "Classrooms" },
+  { id: "Functions", label: "Annual Functions" },
+  { id: "Sports", label: "Sports" },
+  { id: "Trips", label: "Trips" },
+  { id: "Science Fair", label: "Science Fair" },
+  { id: "Cultural", label: "Cultural Events" },
+] as const;
 
 const GallerySection = () => {
   const [lightbox, setLightbox] = useState<string | null>(null);
+  const [videoModal, setVideoModal] = useState<{ url: string; title: string } | null>(null);
+  const [activeTab, setActiveTab] = useState<string>("all");
+
+  const filteredItems =
+    activeTab === "all" ? items : items.filter((item) => item.category === activeTab);
 
   return (
     <section id="gallery" className="section-padding bg-secondary relative overflow-hidden">
       <div className="container mx-auto relative">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -32,6 +113,7 @@ const GallerySection = () => {
           >
             School Gallery
           </motion.h2>
+          <div className="w-16 h-0.5 bg-gold mx-auto mt-2 mb-4" aria-hidden />
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -43,8 +125,31 @@ const GallerySection = () => {
           </motion.p>
         </div>
 
+        {/* Filter tabs */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10"
+        >
+          {TABS.map((tab) => (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                activeTab === tab.id
+                  ? "gold-gradient text-accent-foreground shadow-md"
+                  : "bg-card border border-border text-foreground hover:border-gold/50 hover:text-gold"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </motion.div>
+
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
-          {images.map((img, i) => (
+          {filteredItems.map((item, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, scale: 0.8 }}
@@ -52,18 +157,27 @@ const GallerySection = () => {
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
               className="relative group cursor-pointer break-inside-avoid rounded-xl overflow-hidden"
-              onClick={() => setLightbox(img.src)}
+              onClick={() =>
+                item.type === "video"
+                  ? setVideoModal({ url: item.videoUrl, title: item.label })
+                  : setLightbox(item.src)
+              }
             >
               <img
-                src={img.src}
-                alt={img.label}
+                src={item.src}
+                alt={item.label}
                 className="w-full object-cover transition-transform duration-500 group-hover:scale-110"
                 loading="lazy"
                 style={{ height: i % 3 === 0 ? 280 : i % 3 === 1 ? 220 : 300 }}
               />
               <div className="absolute inset-0 bg-navy-dark/0 group-hover:bg-navy-dark/60 transition-colors flex items-center justify-center">
+                {item.type === "video" && (
+                  <span className="absolute flex items-center justify-center w-14 h-14 rounded-full bg-white/90 text-navy shadow-lg group-hover:scale-110 transition-transform">
+                    <Play className="w-7 h-7 ml-1" fill="currentColor" />
+                  </span>
+                )}
                 <span className="text-primary-foreground font-display font-bold text-lg opacity-0 group-hover:opacity-100 transition-opacity">
-                  {img.label}
+                  {item.label}
                 </span>
               </div>
             </motion.div>
@@ -98,6 +212,13 @@ const GallerySection = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <VideoModal
+        open={!!videoModal}
+        onClose={() => setVideoModal(null)}
+        url={videoModal?.url ?? ""}
+        title={videoModal?.title ?? ""}
+      />
     </section>
   );
 };

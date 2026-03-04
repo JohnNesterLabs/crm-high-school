@@ -49,10 +49,18 @@ const Navbar = () => {
             className="w-10 h-10 rounded-full object-cover"
           />
           <div className="hidden sm:block">
-            <div className="font-display font-bold text-sm leading-tight text-primary-foreground dark:text-foreground drop-shadow-md">
+            <div
+              className={`font-display font-bold text-sm leading-tight drop-shadow-md ${
+                scrolled ? "text-foreground" : "text-primary-foreground dark:text-foreground"
+              }`}
+            >
               CRM High School
             </div>
-            <div className="text-[10px] text-gold font-medium">Est. 1988</div>
+            <div
+              className={`text-[10px] font-medium ${scrolled ? "text-muted-foreground" : "text-gold"}`}
+            >
+              Est. 1988
+            </div>
           </div>
         </a>
 
@@ -62,14 +70,18 @@ const Navbar = () => {
             <a
               key={l.href}
               href={l.href}
-              className="text-sm font-medium text-primary-foreground/80 dark:text-foreground/80 hover:text-gold transition-colors drop-shadow-sm"
+              className={`text-sm font-medium hover:text-gold transition-colors drop-shadow-sm ${
+                scrolled ? "text-foreground/90" : "text-primary-foreground/90 dark:text-foreground/90"
+              }`}
             >
               {l.label}
             </a>
           ))}
           <button
             onClick={toggle}
-            className="p-2 rounded-full text-primary-foreground/80 dark:text-foreground/80 hover:text-gold transition-colors"
+            className={`p-2 rounded-full hover:text-gold transition-colors ${
+              scrolled ? "text-foreground/90" : "text-primary-foreground/90 dark:text-foreground/90"
+            }`}
             aria-label="Toggle theme"
           >
             {theme === "dark" ? <Sun className="w-4.5 h-4.5" /> : <Moon className="w-4.5 h-4.5" />}
@@ -85,7 +97,7 @@ const Navbar = () => {
         {/* Mobile toggle */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="lg:hidden text-primary-foreground dark:text-foreground"
+          className={`lg:hidden ${scrolled ? "text-foreground" : "text-primary-foreground dark:text-foreground"}`}
         >
           {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>

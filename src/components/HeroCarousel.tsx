@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
@@ -77,7 +77,7 @@ const HeroCarousel = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="font-display text-4xl sm:text-5xl md:text-7xl font-bold text-primary-foreground mb-4 drop-shadow-lg"
+            className="font-display text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-lg"
           >
             CRM High School
           </motion.h1>
@@ -96,7 +96,7 @@ const HeroCarousel = () => {
             transition={{ delay: 1.2 }}
             className="mb-8"
           >
-            <span className="typewriter inline-block font-body text-primary-foreground/90 text-base md:text-lg">
+            <span className="typewriter inline-block font-body text-white/90 text-base md:text-lg">
               "Achieving Excellence Together"
             </span>
           </motion.div>
@@ -107,7 +107,7 @@ const HeroCarousel = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
-              className="text-primary-foreground/70 text-sm md:text-base mb-8"
+              className="text-white/80 text-sm md:text-base mb-8"
             >
               {slides[activeIndex].title} — {slides[activeIndex].subtitle}
             </motion.p>
@@ -125,19 +125,27 @@ const HeroCarousel = () => {
         </div>
       </div>
 
-      {/* Navigation arrows */}
-      <button
+      {/* Navigation: minimal pill buttons with subtle animation */}
+      <motion.button
         ref={prevRef}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full glass flex items-center justify-center text-primary-foreground hover:shadow-[0_0_20px_hsl(var(--gold)/0.4)] transition-shadow"
+        type="button"
+        aria-label="Previous slide"
+        className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full border-2 border-white/50 bg-black/20 backdrop-blur-sm flex items-center justify-center text-white hover:border-gold hover:bg-black/30 hover:text-gold focus:outline-none focus:ring-2 focus:ring-gold/50 focus:ring-offset-2 focus:ring-offset-transparent transition-colors duration-200"
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.96 }}
       >
-        <ChevronLeft className="w-6 h-6" />
-      </button>
-      <button
+        <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2.5} />
+      </motion.button>
+      <motion.button
         ref={nextRef}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full glass flex items-center justify-center text-primary-foreground hover:shadow-[0_0_20px_hsl(var(--gold)/0.4)] transition-shadow"
+        type="button"
+        aria-label="Next slide"
+        className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full border-2 border-white/50 bg-black/20 backdrop-blur-sm flex items-center justify-center text-white hover:border-gold hover:bg-black/30 hover:text-gold focus:outline-none focus:ring-2 focus:ring-gold/50 focus:ring-offset-2 focus:ring-offset-transparent transition-colors duration-200"
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.96 }}
       >
-        <ChevronRight className="w-6 h-6" />
-      </button>
+        <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2.5} />
+      </motion.button>
 
       {/* Pagination dots */}
       <div className="hero-pagination absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2 [&_.swiper-pagination-bullet]:w-3 [&_.swiper-pagination-bullet]:h-3 [&_.swiper-pagination-bullet]:rounded-full [&_.swiper-pagination-bullet]:bg-primary-foreground/40 [&_.swiper-pagination-bullet]:transition-all [&_.swiper-pagination-bullet-active]:bg-gold [&_.swiper-pagination-bullet-active]:w-8" />

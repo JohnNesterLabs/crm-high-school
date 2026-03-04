@@ -48,12 +48,14 @@ const TeachersSection = () => (
       >
         <div className="relative rounded-2xl overflow-hidden navy-gradient p-8 text-center shadow-2xl border-2 border-gold/30">
           <Award className="w-10 h-10 text-gold mx-auto mb-4" />
-          <div className="w-24 h-24 rounded-full mx-auto mb-4 bg-primary-foreground/20 flex items-center justify-center">
-            <span className="font-display text-3xl font-bold text-primary-foreground">DR</span>
-          </div>
-          <h3 className="font-display text-xl font-bold text-primary-foreground">Dr. Rajesh Kumar</h3>
+          <img
+            src="/science-fair/487402671_1124568666381135_173436738163303464_n.jpg"
+            alt="Dr. Rajesh Kumar, Principal"
+            className="w-24 h-24 rounded-full mx-auto mb-4 object-cover object-[center_30%] border-2 border-gold/50"
+          />
+          <h3 className="font-display text-xl font-bold text-white">Dr. Rajesh Kumar</h3>
           <p className="text-gold font-semibold text-sm mt-1">Principal</p>
-          <p className="text-primary-foreground/60 text-sm mt-2">
+          <p className="text-white/80 text-sm mt-2">
             Leading CRM High School with vision, passion, and dedication to academic excellence.
           </p>
         </div>
