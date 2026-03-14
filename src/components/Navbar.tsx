@@ -14,31 +14,14 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
-const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
-  const [hidden, setHidden] = useState(false);
-  const [lastY, setLastY] = useState(0);
+const Navbar = ({ scrolled = false }: { scrolled?: boolean }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { theme, toggle } = useTheme();
 
-  useEffect(() => {
-    const onScroll = () => {
-      const y = window.scrollY;
-      setScrolled(y > 50);
-      setHidden(y > 200 && y > lastY);
-      setLastY(y);
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [lastY]);
-
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: hidden ? -100 : 0 }}
-      transition={{ duration: 0.3 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "glass shadow-lg" : "bg-transparent"
+    <nav
+      className={`transition-colors duration-300 ${
+        scrolled ? "glass shadow-md" : "bg-background/95 backdrop-blur-sm border-b border-border/50"
       }`}
     >
       <div className="container mx-auto px-4 flex items-center justify-between h-16 md:h-20">
@@ -50,8 +33,8 @@ const Navbar = () => {
           />
           <div className="hidden sm:block">
             <div
-              className={`font-display font-bold text-sm leading-tight drop-shadow-md ${
-                scrolled ? "text-foreground" : "text-primary-foreground dark:text-foreground"
+              className={`font-display font-bold text-sm leading-tight ${
+                scrolled ? "text-foreground" : "text-foreground"
               }`}
             >
               CRM High School
@@ -64,24 +47,20 @@ const Navbar = () => {
           </div>
         </a>
 
-        {/* Desktop */}
-        <div className="hidden lg:flex items-center gap-6">
+        {/* Desktop nav links */}
+        <div className="hidden md:flex flex-shrink-0 items-center gap-4 lg:gap-6">
           {navLinks.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className={`text-sm font-medium hover:text-gold transition-colors drop-shadow-sm ${
-                scrolled ? "text-foreground/90" : "text-primary-foreground/90 dark:text-foreground/90"
-              }`}
+              className="text-sm font-medium text-foreground/90 hover:text-gold transition-colors"
             >
               {l.label}
             </a>
           ))}
           <button
             onClick={toggle}
-            className={`p-2 rounded-full hover:text-gold transition-colors ${
-              scrolled ? "text-foreground/90" : "text-primary-foreground/90 dark:text-foreground/90"
-            }`}
+            className="p-2 rounded-full text-foreground/90 hover:text-gold transition-colors"
             aria-label="Toggle theme"
           >
             {theme === "dark" ? <Sun className="w-4.5 h-4.5" /> : <Moon className="w-4.5 h-4.5" />}
@@ -97,7 +76,7 @@ const Navbar = () => {
         {/* Mobile toggle */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className={`lg:hidden ${scrolled ? "text-foreground" : "text-primary-foreground dark:text-foreground"}`}
+          className="md:hidden text-foreground"
         >
           {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
@@ -110,7 +89,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden glass overflow-hidden"
+            className="md:hidden glass overflow-hidden"
           >
             <div className="px-4 py-4 flex flex-col gap-3">
               {navLinks.map((l) => (
@@ -142,7 +121,7 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </nav>
   );
 };
 

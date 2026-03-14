@@ -6,9 +6,9 @@ import VideoModal from "@/components/VideoModal";
 import { TEACHERS_DAY_VIDEO_URL, SPORTS_DAY_VIDEO_URL, INDEPENDENCE_DAY_POST_URL } from "@/lib/constants";
 
 import heroSchool from "@/assets/hero-school.jpg";
-import heroFunction from "@/assets/hero-function.jpg";
-import heroSports from "@/assets/hero-sports.jpg";
-import heroTrip from "@/assets/hero-trip.jpg";
+import heroImage1 from "@/assets/hero-image1.jpg";
+import heroImage2 from "@/assets/hero-image2.jpg";
+import heroImage3 from "@/assets/hero-image3.jpg";
 import heroClassroom from "@/assets/hero-classroom.jpg";
 
 type GalleryImage = { type: "image"; src: string; label: string; category: string };
@@ -70,18 +70,16 @@ const SPORTS_IMAGES = [
 }));
 
 const items: GalleryItem[] = [
-  { type: "video", src: heroFunction, label: "Teachers' Day", category: "Events", videoUrl: TEACHERS_DAY_VIDEO_URL },
+  { type: "video", src: heroImage1, label: "Teachers' Day", category: "Events", videoUrl: TEACHERS_DAY_VIDEO_URL },
   { type: "image", src: heroClassroom, label: "Classrooms", category: "Classrooms" },
-  { type: "image", src: heroFunction, label: "Annual Function", category: "Functions" },
-  { type: "image", src: heroSports, label: "Sports Day", category: "Sports" },
-  { type: "video", src: heroSports, label: "Glimpse of Sports Day", category: "Sports", videoUrl: SPORTS_DAY_VIDEO_URL },
+  { type: "image", src: heroImage1, label: "Annual Function", category: "Functions" },
+  { type: "video", src: heroImage2, label: "Glimpse of Sports Day", category: "Sports", videoUrl: SPORTS_DAY_VIDEO_URL },
   ...SPORTS_IMAGES,
-  { type: "image", src: heroTrip, label: "Educational Trip", category: "Trips" },
+  { type: "image", src: heroImage3, label: "Educational Trip", category: "Trips" },
   ...PRATAPGARH_FARMS_IMAGES,
   ...SCIENCE_FAIR_IMAGES,
   { type: "image", src: heroSchool, label: "Campus View", category: "Campus" },
-  { type: "image", src: heroFunction, label: "Cultural Program", category: "Cultural" },
-  { type: "video", src: heroFunction, label: "Glimpse of Independence Day celebrations and award ceremony for excellence", category: "Cultural", videoUrl: INDEPENDENCE_DAY_POST_URL },
+  { type: "video", src: heroImage1, label: "Glimpse of Independence Day celebrations and award ceremony for excellence", category: "Cultural", videoUrl: INDEPENDENCE_DAY_POST_URL },
 ];
 
 const TABS = [
@@ -124,11 +122,10 @@ const GallerySection = () => {
               key={tab.id}
               type="button"
               onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                activeTab === tab.id
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${activeTab === tab.id
                   ? "gold-gradient text-accent-foreground shadow-md"
                   : "bg-card border border-border text-foreground hover:border-gold/50 hover:text-gold"
-              }`}
+                }`}
             >
               {tab.label}
             </button>
@@ -141,29 +138,29 @@ const GallerySection = () => {
               <div
                 className="relative group cursor-pointer break-inside-avoid rounded-xl overflow-hidden"
                 onClick={() =>
-                item.type === "video"
-                  ? setVideoModal({ url: item.videoUrl, title: item.label })
-                  : setLightbox(item.src)
-              }
-            >
-              <img
-                src={item.src}
-                alt={item.label}
-                className="w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                loading="lazy"
-                style={{ height: i % 3 === 0 ? 280 : i % 3 === 1 ? 220 : 300 }}
-              />
-              <div className="absolute inset-0 bg-navy-dark/0 group-hover:bg-navy-dark/60 transition-colors flex items-center justify-center">
-                {item.type === "video" && (
-                  <span className="absolute flex items-center justify-center w-14 h-14 rounded-full bg-white/90 text-navy shadow-lg group-hover:scale-110 transition-transform">
-                    <Play className="w-7 h-7 ml-1" fill="currentColor" />
+                  item.type === "video"
+                    ? setVideoModal({ url: item.videoUrl, title: item.label })
+                    : setLightbox(item.src)
+                }
+              >
+                <img
+                  src={item.src}
+                  alt={item.label}
+                  className="w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
+                  style={{ height: i % 3 === 0 ? 280 : i % 3 === 1 ? 220 : 300 }}
+                />
+                <div className="absolute inset-0 bg-navy-dark/0 group-hover:bg-navy-dark/60 transition-colors flex items-center justify-center">
+                  {item.type === "video" && (
+                    <span className="absolute flex items-center justify-center w-14 h-14 rounded-full bg-white/90 text-navy shadow-lg group-hover:scale-110 transition-transform">
+                      <Play className="w-7 h-7 ml-1" fill="currentColor" />
+                    </span>
+                  )}
+                  <span className="text-primary-foreground font-display font-bold text-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                    {item.label}
                   </span>
-                )}
-                <span className="text-primary-foreground font-display font-bold text-lg opacity-0 group-hover:opacity-100 transition-opacity">
-                  {item.label}
-                </span>
+                </div>
               </div>
-            </div>
             </ScrollReveal>
           ))}
         </div>

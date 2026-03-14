@@ -8,16 +8,16 @@ import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 
 import heroSchool from "@/assets/hero-school.jpg";
-import heroFunction from "@/assets/hero-function.jpg";
-import heroSports from "@/assets/hero-sports.jpg";
-import heroTrip from "@/assets/hero-trip.jpg";
+import heroImage1 from "@/assets/hero-image1.jpg";
+import heroImage2 from "@/assets/hero-image2.jpg";
+import heroImage3 from "@/assets/hero-image3.jpg";
 import heroClassroom from "@/assets/hero-classroom.jpg";
 
 const slides = [
   { img: heroSchool, title: "Our Campus", subtitle: "A nurturing environment for holistic growth" },
-  { img: heroFunction, title: "Annual Function", subtitle: "Celebrating talent and creativity" },
-  { img: heroSports, title: "Sports Day", subtitle: "Building champions on and off the field" },
-  { img: heroTrip, title: "School Trips", subtitle: "Learning beyond the classroom walls" },
+  { img: heroImage1, title: "Annual Function", subtitle: "Celebrating talent and creativity" },
+  { img: heroImage2, title: "Sports Day", subtitle: "Building champions on and off the field" },
+  { img: heroImage3, title: "School Trips", subtitle: "Learning beyond the classroom walls" },
   { img: heroClassroom, title: "Smart Classrooms", subtitle: "Modern education for a modern world" },
 ];
 
