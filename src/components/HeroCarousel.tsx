@@ -126,26 +126,22 @@ const HeroCarousel = () => {
       </div>
 
       {/* Navigation: minimal pill buttons with subtle animation */}
-      <motion.button
+      <button
         ref={prevRef}
         type="button"
         aria-label="Previous slide"
-        className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full border-2 border-white/50 bg-black/20 backdrop-blur-sm flex items-center justify-center text-white hover:border-gold hover:bg-black/30 hover:text-gold focus:outline-none focus:ring-2 focus:ring-gold/50 focus:ring-offset-2 focus:ring-offset-transparent transition-colors duration-200"
-        whileHover={{ scale: 1.08 }}
-        whileTap={{ scale: 0.96 }}
+        className="group absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full border-2 border-white/50 bg-black/20 backdrop-blur-sm flex items-center justify-center text-white hover:border-gold hover:bg-black/30 hover:text-gold focus:outline-none focus:ring-2 focus:ring-gold/50 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-300"
       >
-        <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2.5} />
-      </motion.button>
-      <motion.button
+        <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 group-active:scale-95 transition-transform duration-300" strokeWidth={2.5} />
+      </button>
+      <button
         ref={nextRef}
         type="button"
         aria-label="Next slide"
-        className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full border-2 border-white/50 bg-black/20 backdrop-blur-sm flex items-center justify-center text-white hover:border-gold hover:bg-black/30 hover:text-gold focus:outline-none focus:ring-2 focus:ring-gold/50 focus:ring-offset-2 focus:ring-offset-transparent transition-colors duration-200"
-        whileHover={{ scale: 1.08 }}
-        whileTap={{ scale: 0.96 }}
+        className="group absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full border-2 border-white/50 bg-black/20 backdrop-blur-sm flex items-center justify-center text-white hover:border-gold hover:bg-black/30 hover:text-gold focus:outline-none focus:ring-2 focus:ring-gold/50 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-300"
       >
-        <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2.5} />
-      </motion.button>
+        <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 group-active:scale-95 transition-transform duration-300" strokeWidth={2.5} />
+      </button>
 
       {/* Pagination dots */}
       <div className="hero-pagination absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2 [&_.swiper-pagination-bullet]:w-3 [&_.swiper-pagination-bullet]:h-3 [&_.swiper-pagination-bullet]:rounded-full [&_.swiper-pagination-bullet]:bg-primary-foreground/40 [&_.swiper-pagination-bullet]:transition-all [&_.swiper-pagination-bullet-active]:bg-gold [&_.swiper-pagination-bullet-active]:w-8" />
