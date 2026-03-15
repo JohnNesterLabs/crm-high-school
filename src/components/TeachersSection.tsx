@@ -2,7 +2,7 @@ import { ScrollReveal } from "@/hooks/useScrollReveal";
 import TiltCard from "@/components/TiltCard";
 import { Award } from "lucide-react";
 
-import princiImg from "@/assets/teacher/Satish-sir.jpeg";
+import princiImg from "@/assets/teacher/Satish-kumar.jpeg";
 import anandImg from "@/assets/teacher/Anand.jpeg";
 import tilakImg from "@/assets/teacher/Tilak.jpeg";
 import parmodImg from "@/assets/teacher/Parmod.jpeg";
@@ -113,7 +113,7 @@ const TeachersSection = () => (
           <Award className="w-10 h-10 text-gold mx-auto mb-4" />
           <img
             src={teachers[0].image}
-            alt="Mr. Satish Kumar, Principal"
+            alt="Mr. Satish Kumar - Principal"
             className="w-24 h-24 rounded-full mx-auto mb-4 object-cover object-[center_30%] border-2 border-gold/50"
           />
           <h3 className="font-display text-xl font-bold text-white">Mr. Satish Kumar</h3>
