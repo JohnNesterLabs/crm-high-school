@@ -3,15 +3,13 @@ import TiltCard from "@/components/TiltCard";
 import { Award } from "lucide-react";
 
 const teachers = [
-  { name: "Dr. Rajesh Kumar", role: "Principal", subject: "Administration", featured: true },
-  { name: "Mrs. Sunita Devi", role: "Vice Principal", subject: "Hindi", featured: false },
-  { name: "Mr. Tilak Gupta", role: "Senior Teacher", subject: "Mathematics (6+ Years Exp.)", featured: false },
-  { name: "Mr. Satish Diman", role: "Teacher", subject: "English", featured: false },
-  { name: "Mr. Devender", role: "Sports Teacher", subject: "Physical Education", featured: false },
-  { name: "Mr. Suresh Yadav", role: "Teacher", subject: "Science", featured: false },
-  { name: "Mrs. Pooja Gupta", role: "Teacher", subject: "Social Studies", featured: false },
-  { name: "Mr. Deepak Singh", role: "Teacher", subject: "Computer Science", featured: false },
-  { name: "Mrs. Neelam Kumari", role: "Teacher", subject: "Physical Education", featured: false },
+  { name: "Mr. Satish Kumar", role: "Principal", subject: "Administration", featured: true },
+  { name: "Mr. Anand Kumar", role: "Vice Principal", subject: "Administration", featured: false },
+  { name: "Mr. Tilak", role: "Math Teacher", subject: "Mathematics", featured: false },
+  { name: "Mr. Parmod Kumar", role: "English Teacher", subject: "English", featured: false },
+  { name: "Mr. Sandeep", role: "Science Teacher", subject: "Science", featured: false },
+  { name: "Mr. Deepak", role: "Social Science Teacher", subject: "Social Science", featured: false },
+  { name: "Mrs. Kusum", role: "Hindi Teacher", subject: "Hindi", featured: false },
 ];
 
 const TeachersSection = () => (
@@ -38,10 +36,10 @@ const TeachersSection = () => (
           <Award className="w-10 h-10 text-gold mx-auto mb-4" />
           <img
             src="/science-fair/487402671_1124568666381135_173436738163303464_n.jpg"
-            alt="Dr. Rajesh Kumar, Principal"
+            alt="Mr. Satish Kumar, Principal"
             className="w-24 h-24 rounded-full mx-auto mb-4 object-cover object-[center_30%] border-2 border-gold/50"
           />
-          <h3 className="font-display text-xl font-bold text-white">Dr. Rajesh Kumar</h3>
+          <h3 className="font-display text-xl font-bold text-white">Mr. Satish Kumar</h3>
           <p className="text-gold font-semibold text-sm mt-1">Principal</p>
           <p className="text-white/80 text-sm mt-2">
             Leading CRM High School with vision, passion, and dedication to academic excellence.

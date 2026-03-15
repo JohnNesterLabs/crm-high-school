@@ -31,9 +31,9 @@ const Navbar = ({ scrolled = false }: { scrolled?: boolean }) => {
             alt="CRM High School logo"
             className="w-10 h-10 rounded-full object-cover"
           />
-          <div className="hidden sm:block">
+          <div>
             <div
-              className={`font-display font-bold text-sm leading-tight ${
+              className={`font-display font-bold text-sm sm:text-base leading-tight ${
                 scrolled ? "text-foreground" : "text-foreground"
               }`}
             >
