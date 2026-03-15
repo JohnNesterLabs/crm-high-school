@@ -51,8 +51,6 @@ const teachers = [
   { name: "Mrs. Ritu", role: "Teacher", subject: "Faculty", featured: false, image: ritu1Img },
   { name: "Mrs. Sushma", role: "Teacher", subject: "Faculty", featured: false, image: sushmaImg },
   { name: "Mrs. Sushma", role: "Teacher", subject: "Faculty", featured: false, image: sushma1Img },
-  { name: "Support Staff", role: "Office Staff", subject: "Administration", featured: false, image: peon1Img },
-  { name: "Support Staff", role: "Office Staff", subject: "Administration", featured: false, image: peon2Img },
   { name: "Mrs. Sonia", role: "Teacher", subject: "Faculty", featured: false, image: soniaImg },
   { name: "Mrs. Sushila", role: "Teacher", subject: "Faculty", featured: false, image: sushilaImg },
   { name: "Mrs. Monika", role: "Teacher", subject: "Faculty", featured: false, image: monikaImg },
@@ -68,6 +66,11 @@ const teachers = [
   { name: "Mrs. Priyanka", role: "Teacher", subject: "Faculty", featured: false, image: priyankaImg },
   { name: "Mrs. Kiran", role: "Teacher", subject: "Faculty", featured: false, image: kiranImg },
   { name: "Mr. Prasant", role: "Teacher", subject: "Faculty", featured: false, image: prasantImg },
+];
+
+const supportStaff = [
+  { name: "Mrs. Geeta", role: "Support Staff", subject: "Administration", image: peon1Img },
+  { name: "Mrs. Rinki", role: "Support Staff", subject: "Administration", image: peon2Img },
 ];
 
 // Initials from name (e.g. "Mr. Anand Kumar" -> "AK", "Mr. Tilak" -> "T")
@@ -132,29 +135,56 @@ const TeachersSection = () => (
           return (
             <ScrollReveal key={`${t.name}-${i}`} animation={anim} delay={i * 120}>
               <TiltCard
-                className="rounded-xl bg-white p-6 text-center shadow-md border border-gray-100 hover:shadow-lg transition-shadow h-full"
+                className="rounded-xl bg-white p-7 text-center shadow-md border border-gray-100 hover:shadow-lg transition-shadow h-full"
                 glareColor={i % 3 === 0 ? "hsl(var(--primary))" : i % 3 === 1 ? "hsl(var(--gold))" : "hsl(var(--accent))"}
                 tiltDeg={5}
               >
-                <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-gray-100">
+                <div className="w-28 h-28 rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-gray-100">
                   {t.image ? (
                     <img src={t.image} alt={t.name} className="w-full h-full object-cover" />
                   ) : (
-                    <span className={`w-full h-full flex items-center justify-center font-bold text-lg ${colors.bg} ${colors.text}`}>
+                    <span className={`w-full h-full flex items-center justify-center font-bold text-2xl ${colors.bg} ${colors.text}`}>
                       {getInitials(t.name)}
                     </span>
                   )}
                 </div>
-                <h4 className="font-semibold text-gray-900 text-sm mb-2">{t.name}</h4>
-                <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${colors.bg} ${colors.text}`}>
+                <h4 className="font-semibold text-gray-900 text-base mb-2">{t.name}</h4>
+                <span className={`inline-block px-3 py-1.5 rounded-full text-sm font-medium ${colors.bg} ${colors.text}`}>
                   {t.role}
                 </span>
-                <p className="text-gray-500 text-xs mt-3">{t.subject}</p>
+                <p className="text-gray-500 text-sm mt-3">{t.subject}</p>
               </TiltCard>
             </ScrollReveal>
           );
         })}
       </div>
+
+      {/* Support Staff / Office Staff */}
+      {supportStaff.length > 0 && (
+        <>
+          <ScrollReveal animation="rotate-in" className="text-center mt-16 mb-8">
+            <h3 className="text-xl font-display font-bold text-foreground">Our Support Staff</h3>
+            <p className="text-muted-foreground text-sm mt-1">Dedicated office staff keeping our school running smoothly</p>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 sm:grid-cols-2 max-w-2xl mx-auto gap-6">
+            {supportStaff.map((s, i) => (
+              <ScrollReveal key={i} animation="slide-up-spring" delay={i * 100}>
+                <TiltCard
+                  className="rounded-xl bg-white p-7 text-center shadow-md border border-gray-100 hover:shadow-lg transition-shadow h-full"
+                  glareColor="hsl(var(--primary))"
+                  tiltDeg={5}
+                >
+                  <div className="w-28 h-28 rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-gray-100">
+                    <img src={s.image} alt={s.name} className="w-full h-full object-cover object-[center_32%]" />
+                  </div>
+                  <h4 className="font-semibold text-gray-900 text-base mb-2">{s.name}</h4>
+                  <p className="text-gray-500 text-sm">{s.role}</p>
+                </TiltCard>
+              </ScrollReveal>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   </section>
 );
