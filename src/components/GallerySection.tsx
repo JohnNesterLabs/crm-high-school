@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
-import { X, Play } from "lucide-react";
+import { X, Play, ChevronLeft, ChevronRight } from "lucide-react";
 import VideoModal from "@/components/VideoModal";
 import { TEACHERS_DAY_VIDEO_URL, SPORTS_DAY_VIDEO_URL, INDEPENDENCE_DAY_POST_URL } from "@/lib/constants";
 
@@ -148,12 +148,42 @@ const TABS = [
 ] as const;
 
 const GallerySection = () => {
-  const [lightbox, setLightbox] = useState<string | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [videoModal, setVideoModal] = useState<{ url: string; title: string } | null>(null);
   const [activeTab, setActiveTab] = useState<string>("Sports");
 
   const filteredItems =
     activeTab === "all" ? items : items.filter((item) => item.category === activeTab);
+
+  // Only consider images for the sliding lightbox
+  const lightboxItems = filteredItems.filter(item => item.type === "image");
+
+  const handlePrevious = useCallback((e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (activeIndex !== null && lightboxItems.length > 0) {
+      setActiveIndex((prev) => (prev === 0 ? lightboxItems.length - 1 : prev! - 1));
+    }
+  }, [activeIndex, lightboxItems.length]);
+
+  const handleNext = useCallback((e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (activeIndex !== null && lightboxItems.length > 0) {
+      setActiveIndex((prev) => (prev === lightboxItems.length - 1 ? 0 : prev! + 1));
+    }
+  }, [activeIndex, lightboxItems.length]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (activeIndex === null) return;
+      if (e.key === "ArrowLeft") handlePrevious();
+      if (e.key === "ArrowRight") handleNext();
+      if (e.key === "Escape") setActiveIndex(null);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeIndex, handleNext, handlePrevious]);
+
 
   return (
     <section id="gallery" className="section-padding bg-secondary relative overflow-hidden">
@@ -192,11 +222,14 @@ const GallerySection = () => {
             <ScrollReveal key={i} animation="scale-fade" delay={i * 80}>
               <div
                 className="relative group cursor-pointer break-inside-avoid rounded-xl overflow-hidden transform-gpu"
-                onClick={() =>
-                  item.type === "video"
-                    ? setVideoModal({ url: item.videoUrl, title: item.label })
-                    : setLightbox(item.src)
-                }
+                onClick={() => {
+                  if (item.type === "video") {
+                    setVideoModal({ url: item.videoUrl, title: item.label });
+                  } else {
+                    const idx = lightboxItems.findIndex((img) => img.src === item.src);
+                    if (idx !== -1) setActiveIndex(idx);
+                  }
+                }}
               >
                 <img
                   src={item.src}
@@ -211,7 +244,7 @@ const GallerySection = () => {
                       <Play className="w-7 h-7 ml-1" fill="currentColor" />
                     </span>
                   )}
-                  <span className="text-primary-foreground font-display font-bold text-lg translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                  <span className="text-primary-foreground font-display font-bold text-lg translate-y-2 group-hover:translate-y-0 transition-transform duration-300 p-4 text-center">
                     {item.label}
                   </span>
                 </div>
@@ -223,29 +256,61 @@ const GallerySection = () => {
 
       {/* Lightbox */}
       <AnimatePresence>
-        {lightbox && (
+        {activeIndex !== null && lightboxItems.length > 0 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-navy-dark/90 flex items-center justify-center p-4"
-            onClick={() => setLightbox(null)}
+            className="fixed inset-0 z-50 bg-navy-dark/95 flex items-center justify-center p-4"
+            onClick={() => setActiveIndex(null)}
           >
-            <motion.img
-              initial={{ scale: 0.7, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.7, opacity: 0 }}
-              src={lightbox}
-              alt="Gallery"
-              className="max-w-full max-h-[85vh] rounded-xl shadow-2xl"
-            />
+            {/* Close Button */}
             <button
-              onClick={() => setLightbox(null)}
+              onClick={() => setActiveIndex(null)}
               className="absolute top-4 right-4 sm:top-6 sm:right-6 w-12 h-12 rounded-full bg-black/50 hover:bg-black/80 backdrop-blur-md flex items-center justify-center text-white border border-white/20 transition-all hover:scale-110 z-[60] shadow-xl"
               aria-label="Close"
             >
               <X className="w-6 h-6" strokeWidth={2.5} />
             </button>
+
+            {/* Left/Previous Button */}
+            {lightboxItems.length > 1 && (
+              <button
+                onClick={handlePrevious}
+                className="absolute left-2 sm:left-6 md:left-10 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-black/40 hover:bg-black/80 backdrop-blur-md flex items-center justify-center text-white border border-white/20 transition-all hover:scale-110 z-[60]"
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8" strokeWidth={2.5} />
+              </button>
+            )}
+
+            <motion.img
+              key={activeIndex}
+              initial={{ scale: 0.95, opacity: 0, x: 20 }}
+              animate={{ scale: 1, opacity: 1, x: 0 }}
+              exit={{ scale: 0.95, opacity: 0, x: -20 }}
+              transition={{ duration: 0.2 }}
+              src={lightboxItems[activeIndex].src}
+              alt={lightboxItems[activeIndex].label || "Gallery Image"}
+              className="max-w-full max-h-[85vh] rounded-xl shadow-2xl object-contain min-h-[300px]"
+              onClick={(e) => e.stopPropagation()} // Prevent close when clicking image
+            />
+
+            {/* Right/Next Button */}
+            {lightboxItems.length > 1 && (
+              <button
+                onClick={handleNext}
+                className="absolute right-2 sm:right-6 md:right-10 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-black/40 hover:bg-black/80 backdrop-blur-md flex items-center justify-center text-white border border-white/20 transition-all hover:scale-110 z-[60]"
+                aria-label="Next image"
+              >
+                <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8" strokeWidth={2.5} />
+              </button>
+            )}
+
+            {/* Image Counter */}
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/50 text-white px-4 py-2 rounded-full text-sm font-medium border border-white/10 backdrop-blur-md">
+              {activeIndex + 1} / {lightboxItems.length}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
