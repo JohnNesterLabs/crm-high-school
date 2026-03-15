@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
 import TiltCard from "@/components/TiltCard";
-import { Award } from "lucide-react";
+import { Award, ChevronDown, ChevronUp } from "lucide-react";
 
 import princiImg from "@/assets/teacher/Satish-kumar.jpeg";
 import anandImg from "@/assets/teacher/Anand.jpeg";
@@ -92,7 +93,17 @@ const avatarColors = [
   { bg: "bg-indigo-100", text: "text-indigo-800" },
 ];
 
-const TeachersSection = () => (
+const TEACHERS_PER_ROW = 4;
+const INITIAL_ROWS = 3;
+const INITIAL_TEACHERS_COUNT = TEACHERS_PER_ROW * INITIAL_ROWS; // 12
+
+const TeachersSection = () => {
+  const [showAllTeachers, setShowAllTeachers] = useState(false);
+  const teacherList = teachers.filter((t) => !t.featured);
+  const displayedTeachers = showAllTeachers ? teacherList : teacherList.slice(0, INITIAL_TEACHERS_COUNT);
+  const hasMoreTeachers = teacherList.length > INITIAL_TEACHERS_COUNT;
+
+  return (
   <section id="teachers" className="section-padding relative overflow-hidden">
     {/* Gradient blob parallax */}
     <div className="absolute top-20 -right-40 w-96 h-96 rounded-full bg-gold/5 blur-3xl pointer-events-none" />
@@ -129,7 +140,7 @@ const TeachersSection = () => (
 
       {/* Teacher grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {teachers.filter((t) => !t.featured).map((t, i) => {
+        {displayedTeachers.map((t, i) => {
           const anim = i % 3 === 0 ? "fade-left" : i % 3 === 1 ? "slide-up-spring" : "fade-right";
           const colors = avatarColors[i % avatarColors.length];
           return (
@@ -159,6 +170,29 @@ const TeachersSection = () => (
         })}
       </div>
 
+      {/* See all teachers / Show less */}
+      {hasMoreTeachers && (
+        <div className="flex justify-center mt-10">
+          <button
+            type="button"
+            onClick={() => setShowAllTeachers((v) => !v)}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-white font-semibold text-sm shadow-md hover:bg-primary/90 hover:shadow-lg transition-all"
+          >
+            {showAllTeachers ? (
+              <>
+                <ChevronUp className="w-4 h-4" />
+                Show less
+              </>
+            ) : (
+              <>
+                <ChevronDown className="w-4 h-4" />
+                See all teachers ({teacherList.length})
+              </>
+            )}
+          </button>
+        </div>
+      )}
+
       {/* Support Staff / Office Staff */}
       {supportStaff.length > 0 && (
         <>
@@ -187,6 +221,7 @@ const TeachersSection = () => (
       )}
     </div>
   </section>
-);
+  );
+};
 
 export default TeachersSection;

@@ -2,6 +2,15 @@ import { useState } from "react";
 import { ScrollReveal } from "@/hooks/useScrollReveal";
 import { Trophy, Star } from "lucide-react";
 
+import tanishaImg from "@/assets/toppers/Tanisha.jpeg";
+import anshuImg from "@/assets/toppers/Anshu.jpeg";
+import deepanshuImg from "@/assets/toppers/Deepanshu.jpeg";
+import kabirImg from "@/assets/toppers/Kabir.jpeg";
+import sahilImg from "@/assets/toppers/Sahil.jpeg";
+import anviImg from "@/assets/toppers/Anvi.jpeg";
+import simranImg from "@/assets/toppers/Simran.jpeg";
+import priyanshiImg from "@/assets/toppers/Priyanshi.jpeg";
+
 type Topper = {
   name: string;
   class: string;
@@ -11,14 +20,14 @@ type Topper = {
 };
 
 const toppers: Topper[] = [
-  { name: "Tanisha", class: "10th", percentage: "97%", stream: "General" },
-  { name: "Anshu", class: "10th", percentage: "96%", stream: "General" },
-  { name: "Deepanshu", class: "10th", percentage: "96%", stream: "General" },
-  { name: "Kabir", class: "10th", percentage: "95%", stream: "General" },
-  { name: "Sahil", class: "10th", percentage: "94.8%", stream: "General" },
-  { name: "Anvi", class: "10th", percentage: "94.2%", stream: "General" },
-  { name: "Simran", class: "10th", percentage: "94%", stream: "General" },
-  { name: "Priyanshi", class: "10th", percentage: "94%", stream: "General" },
+  { name: "Tanisha", class: "10th", percentage: "97%", stream: "General", image: tanishaImg },
+  { name: "Anshu", class: "10th", percentage: "96%", stream: "General", image: anshuImg },
+  { name: "Deepanshu", class: "10th", percentage: "96%", stream: "General", image: deepanshuImg },
+  { name: "Kabir", class: "10th", percentage: "95%", stream: "General", image: kabirImg },
+  { name: "Sahil", class: "10th", percentage: "94.8%", stream: "General", image: sahilImg },
+  { name: "Anvi", class: "10th", percentage: "94.2%", stream: "General", image: anviImg },
+  { name: "Simran", class: "10th", percentage: "94%", stream: "General", image: simranImg },
+  { name: "Priyanshi", class: "10th", percentage: "94%", stream: "General", image: priyanshiImg },
 ];
 
 const FlipCard = ({ topper, i }: { topper: Topper; i: number }) => {
@@ -45,7 +54,7 @@ const FlipCard = ({ topper, i }: { topper: Topper; i: number }) => {
           >
             <div className="w-16 h-16 rounded-full navy-gradient flex items-center justify-center mb-3 overflow-hidden border-2 border-gold/50 shadow-inner">
               {topper.image ? (
-                <img src={topper.image} alt={topper.name} className="w-full h-full object-cover" />
+                <img src={topper.image} alt={topper.name} className="w-full h-full object-cover object-[center_5%]" />
               ) : (
                 <span className="text-primary-foreground font-display font-bold text-xl">
                   {topper.name.charAt(0)}
