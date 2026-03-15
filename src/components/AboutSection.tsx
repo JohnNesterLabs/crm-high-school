@@ -3,7 +3,7 @@ import { ScrollReveal } from "@/hooks/useScrollReveal";
 import TiltCard from "@/components/TiltCard";
 import { GraduationCap, Users, BookOpen, Building2 } from "lucide-react";
 
-import aboutCover from "@/assets/crm-dance.jpg";
+import aboutCover from "@/assets/about-school.jpg";
 
 const stats = [
   { icon: GraduationCap, label: "Years of Excellence", value: 37 },
@@ -88,7 +88,7 @@ const AboutSection = () => {
                 <img
                   src={aboutCover}
                   alt="CRM High School Campus"
-                  className="w-full h-80 object-cover"
+                  className="w-full h-80 object-cover object-[center_83%]"
                   loading="lazy"
                 />
               </div>
@@ -118,7 +118,7 @@ const AboutSection = () => {
         <div className="mt-24 max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <ScrollReveal animation="blur-in">
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-navy mb-4">
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-navy dark:text-white mb-4">
                 WHY CHOOSE <span className="text-gold">CRM</span>??
               </h2>
               <div className="w-24 h-1 bg-gold mx-auto rounded-full" />
@@ -140,11 +140,11 @@ const AboutSection = () => {
               "NEW STUDENTS ARE ADMITTED ONLY ON ENTRANCE TEST BASIS."
             ].map((feature, i) => (
               <ScrollReveal key={i} animation="fade-up" delay={i * 40}>
-                <div className="flex items-start gap-4 p-4 rounded-xl hover:bg-white/50 transition-colors border border-transparent hover:border-gold/20 shadow-sm hover:shadow-md">
+                <div className="flex items-start gap-4 p-4 rounded-xl hover:bg-white/50 dark:hover:bg-white/5 transition-colors border border-transparent hover:border-gold/20 shadow-sm hover:shadow-md">
                   <div className="flex-shrink-0 w-8 h-8 rounded-full gold-gradient flex items-center justify-center mt-0.5 shadow-sm">
                     <span className="text-accent-foreground">✓</span>
                   </div>
-                  <p className="font-semibold text-navy/90 text-[15px] leading-relaxed flex-1">
+                  <p className="font-semibold text-navy/90 dark:text-white/90 text-[15px] leading-relaxed flex-1">
                     {feature}
                   </p>
                 </div>

@@ -10,24 +10,15 @@ type Topper = {
   image?: string;
 };
 
-import tanishaImg from "@/assets/toppers/tanisha.jpg";
-import anshuImg from "@/assets/toppers/anshu.jpg";
-import deepanshuImg from "@/assets/toppers/deepanshu.jpg";
-import kabirImg from "@/assets/toppers/kabir.jpg";
-import sahilImg from "@/assets/toppers/sahil.jpg";
-import anviImg from "@/assets/toppers/anvi.jpg";
-import simranImg from "@/assets/toppers/simran.jpg";
-import priyanshiImg from "@/assets/toppers/priyanshi.jpg";
-
 const toppers: Topper[] = [
-  { name: "Tanisha", class: "10th", percentage: "97%", stream: "General", image: tanishaImg },
-  { name: "Anshu", class: "10th", percentage: "96%", stream: "General", image: anshuImg },
-  { name: "Deepanshu", class: "10th", percentage: "96%", stream: "General", image: deepanshuImg },
-  { name: "Kabir", class: "10th", percentage: "95%", stream: "General", image: kabirImg },
-  { name: "Sahil", class: "10th", percentage: "94.8%", stream: "General", image: sahilImg },
-  { name: "Anvi", class: "10th", percentage: "94.2%", stream: "General", image: anviImg },
-  { name: "Simran", class: "10th", percentage: "94%", stream: "General", image: simranImg },
-  { name: "Priyanshi", class: "10th", percentage: "94%", stream: "General", image: priyanshiImg },
+  { name: "Tanisha", class: "10th", percentage: "97%", stream: "General" },
+  { name: "Anshu", class: "10th", percentage: "96%", stream: "General" },
+  { name: "Deepanshu", class: "10th", percentage: "96%", stream: "General" },
+  { name: "Kabir", class: "10th", percentage: "95%", stream: "General" },
+  { name: "Sahil", class: "10th", percentage: "94.8%", stream: "General" },
+  { name: "Anvi", class: "10th", percentage: "94.2%", stream: "General" },
+  { name: "Simran", class: "10th", percentage: "94%", stream: "General" },
+  { name: "Priyanshi", class: "10th", percentage: "94%", stream: "General" },
 ];
 
 const FlipCard = ({ topper, i }: { topper: Topper; i: number }) => {

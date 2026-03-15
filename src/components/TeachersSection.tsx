@@ -5,8 +5,9 @@ import { Award } from "lucide-react";
 const teachers = [
   { name: "Dr. Rajesh Kumar", role: "Principal", subject: "Administration", featured: true },
   { name: "Mrs. Sunita Devi", role: "Vice Principal", subject: "Hindi", featured: false },
-  { name: "Mr. Amit Sharma", role: "Senior Teacher", subject: "Mathematics", featured: false },
-  { name: "Mrs. Kavita Rani", role: "Teacher", subject: "English", featured: false },
+  { name: "Mr. Tilak Gupta", role: "Senior Teacher", subject: "Mathematics (6+ Years Exp.)", featured: false },
+  { name: "Mr. Satish Diman", role: "Teacher", subject: "English", featured: false },
+  { name: "Mr. Devender", role: "Sports Teacher", subject: "Physical Education", featured: false },
   { name: "Mr. Suresh Yadav", role: "Teacher", subject: "Science", featured: false },
   { name: "Mrs. Pooja Gupta", role: "Teacher", subject: "Social Studies", featured: false },
   { name: "Mr. Deepak Singh", role: "Teacher", subject: "Computer Science", featured: false },

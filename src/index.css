@@ -96,15 +96,23 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
   }
+
   html {
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
   }
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-display);
   }
 }
@@ -113,28 +121,36 @@
   .section-padding {
     @apply px-4 sm:px-6 lg:px-8 py-16 md:py-24;
   }
+
   .section-title {
     font-family: var(--font-display);
     @apply text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4;
   }
+
   .section-subtitle {
     @apply text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto;
   }
+
   .gold-gradient {
     background: linear-gradient(135deg, hsl(var(--gold)) 0%, hsl(var(--gold-light)) 50%, hsl(var(--gold)) 100%);
   }
+
   .navy-gradient {
     background: linear-gradient(135deg, hsl(var(--navy-dark)) 0%, hsl(var(--navy)) 50%, hsl(var(--navy-light)) 100%);
   }
+
   .glass {
     @apply backdrop-blur-md bg-card/80 border border-border/50;
   }
+
   .text-gold {
     color: hsl(var(--gold));
   }
+
   .bg-navy {
     background-color: hsl(var(--navy));
   }
+
   .bg-navy-dark {
     background-color: hsl(var(--navy-dark));
   }
@@ -142,16 +158,26 @@
 
 /* Hero / section fade-up */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 .animate-fade-up {
   animation: fadeUp 0.7s ease-out forwards;
 }
+
 .animate-fade-up-delay {
   animation: fadeUp 0.7s ease-out 0.15s forwards;
   opacity: 0;
 }
+
 .animate-fade-up-delay-2 {
   animation: fadeUp 0.7s ease-out 0.3s forwards;
   opacity: 0;
@@ -159,36 +185,68 @@
 
 /* Marquee */
 @keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
+
 .animate-marquee {
-  animation: marquee 30s linear infinite;
+  animation: marquee 15s linear infinite;
+}
+
+@media (min-width: 640px) {
+  .animate-marquee {
+    animation: marquee 20s linear infinite;
+  }
 }
 
 /* Ken Burns */
 @keyframes kenburns {
-  0% { transform: scale(1); }
-  100% { transform: scale(1.15); }
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.15);
+  }
 }
+
 .animate-kenburns {
   animation: kenburns 8s ease-out forwards;
 }
 
 /* Pulse CTA */
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 hsl(var(--gold) / 0.5); }
-  50% { box-shadow: 0 0 20px 8px hsl(var(--gold) / 0.3); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 hsl(var(--gold) / 0.5);
+  }
+
+  50% {
+    box-shadow: 0 0 20px 8px hsl(var(--gold) / 0.3);
+  }
 }
+
 .animate-pulse-glow {
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
 /* Typewriter – text reveal only, no blinking cursor */
 @keyframes typewriter {
-  from { width: 0; }
-  to { width: 100%; }
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
 }
+
 .typewriter {
   overflow: hidden;
   white-space: nowrap;
@@ -198,11 +256,25 @@
 
 /* Floating particles */
 @keyframes float-up {
-  0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-10vh) rotate(720deg);
+    opacity: 0;
+  }
 }
+
 .particle {
   position: absolute;
   width: 8px;
@@ -214,12 +286,18 @@
 
 /* Ripple */
 @keyframes ripple {
-  to { transform: scale(4); opacity: 0; }
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
 }
 
 /* Reduce motion */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

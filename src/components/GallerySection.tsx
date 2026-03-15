@@ -241,9 +241,10 @@ const GallerySection = () => {
             />
             <button
               onClick={() => setLightbox(null)}
-              className="absolute top-6 right-6 w-10 h-10 rounded-full glass flex items-center justify-center text-primary-foreground"
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 w-12 h-12 rounded-full bg-black/50 hover:bg-black/80 backdrop-blur-md flex items-center justify-center text-white border border-white/20 transition-all hover:scale-110 z-[60] shadow-xl"
+              aria-label="Close"
             >
-              <X className="w-5 h-5" />
+              <X className="w-6 h-6" strokeWidth={2.5} />
             </button>
           </motion.div>
         )}

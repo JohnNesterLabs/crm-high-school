@@ -4,6 +4,7 @@ import { Phone, MapPin, Mail, Facebook, Send } from "lucide-react";
 
 const ContactSection = () => {
   const [formState, setFormState] = useState({ name: "", email: "", message: "" });
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   return (
     <section id="contact" className="section-padding relative overflow-hidden">
@@ -21,40 +22,70 @@ const ContactSection = () => {
 
         <div className="grid md:grid-cols-2 gap-12">
           {/* Form */}
-          <ScrollReveal animation="fade-left">
-            <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
-              {[
-                { key: "name", label: "Your Name", type: "text" },
-                { key: "email", label: "Email Address", type: "email" },
-              ].map((field, i) => (
-                <div key={field.key}>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">{field.label}</label>
-                  <input
-                    type={field.type}
-                    value={formState[field.key as keyof typeof formState]}
-                    onChange={(e) => setFormState({ ...formState, [field.key]: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-card border border-border focus:border-gold focus:ring-2 focus:ring-gold/20 outline-none transition text-foreground"
-                    placeholder={field.label}
+          <ScrollReveal className="relative" animation="fade-left">
+            {!isSubmitted ? (
+              <form 
+                className="space-y-5 relative z-10 bg-card/80 backdrop-blur-md p-6 sm:p-8 rounded-3xl border border-border shadow-xl" 
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  // Simulate an API call or just show success
+                  setFormState({ name: "", email: "", message: "" });
+                  setIsSubmitted(true);
+                }}
+              >
+                {[
+                  { key: "name", label: "Your Name", type: "text" },
+                  { key: "email", label: "Email Address", type: "email" },
+                ].map((field) => (
+                  <div key={field.key}>
+                    <label className="block text-sm font-semibold text-foreground mb-2">{field.label}</label>
+                    <input
+                      type={field.type}
+                      required
+                      value={formState[field.key as keyof typeof formState]}
+                      onChange={(e) => setFormState({ ...formState, [field.key]: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl bg-secondary/50 border border-border focus:border-gold focus:ring-2 focus:ring-gold/20 outline-none transition text-foreground placeholder:text-muted-foreground"
+                      placeholder={field.label}
+                    />
+                  </div>
+                ))}
+                <div>
+                  <label className="block text-sm font-semibold text-foreground mb-2">Message</label>
+                  <textarea
+                    required
+                    rows={4}
+                    value={formState.message}
+                    onChange={(e) => setFormState({ ...formState, message: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl bg-secondary/50 border border-border focus:border-gold focus:ring-2 focus:ring-gold/20 outline-none transition resize-none text-foreground placeholder:text-muted-foreground"
+                    placeholder="How can we help you?"
                   />
                 </div>
-              ))}
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-1.5">Message</label>
-                <textarea
-                  rows={4}
-                  value={formState.message}
-                  onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-card border border-border focus:border-gold focus:ring-2 focus:ring-gold/20 outline-none transition resize-none text-foreground"
-                  placeholder="Your message..."
-                />
+                <button
+                  type="submit"
+                  className="w-full gold-gradient text-accent-foreground px-8 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:shadow-lg transition-all"
+                >
+                  <Send className="w-4 h-4" /> Send Message
+                </button>
+              </form>
+            ) : (
+              <div className="flex flex-col items-center justify-center h-full min-h-[400px] bg-card/80 backdrop-blur-md p-8 rounded-3xl border border-border shadow-xl text-center animate-in fade-in zoom-in duration-500">
+                <div className="w-20 h-20 rounded-full gold-gradient flex items-center justify-center mb-6 shadow-lg shadow-gold/20">
+                  <div className="w-10 h-10 border-4 border-accent-foreground rounded-full flex items-center justify-center">
+                    <span className="text-accent-foreground text-2xl font-bold -mt-1">✓</span>
+                  </div>
+                </div>
+                <h3 className="font-display text-3xl font-bold text-foreground mb-2">Thank You!</h3>
+                <p className="text-muted-foreground mb-8">
+                  Your message has been sent successfully. We will get back to you shortly.
+                </p>
+                <button
+                  onClick={() => setIsSubmitted(false)}
+                  className="px-8 py-2.5 rounded-full border-2 border-gold text-gold font-semibold hover:bg-gold hover:text-accent-foreground transition-colors"
+                >
+                  Send Another Message
+                </button>
               </div>
-              <button
-                type="submit"
-                className="gold-gradient text-accent-foreground px-8 py-3 rounded-full font-semibold flex items-center gap-2 hover:scale-105 transition-transform"
-              >
-                <Send className="w-4 h-4" /> Send Message
-              </button>
-            </form>
+            )}
           </ScrollReveal>
 
           {/* Info + Map */}
