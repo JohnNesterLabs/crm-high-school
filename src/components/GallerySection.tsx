@@ -191,7 +191,7 @@ const GallerySection = () => {
           {filteredItems.map((item, i) => (
             <ScrollReveal key={i} animation="scale-fade" delay={i * 80}>
               <div
-                className="relative group cursor-pointer break-inside-avoid rounded-xl overflow-hidden"
+                className="relative group cursor-pointer break-inside-avoid rounded-xl overflow-hidden transform-gpu"
                 onClick={() =>
                   item.type === "video"
                     ? setVideoModal({ url: item.videoUrl, title: item.label })
@@ -201,17 +201,17 @@ const GallerySection = () => {
                 <img
                   src={item.src}
                   alt={item.label}
-                  className="w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full object-cover transition-transform duration-500 group-hover:scale-110 will-change-transform"
                   loading="lazy"
                   style={{ height: i % 3 === 0 ? 280 : i % 3 === 1 ? 220 : 300 }}
                 />
-                <div className="absolute inset-0 bg-navy-dark/0 group-hover:bg-navy-dark/60 transition-colors flex items-center justify-center">
+                <div className="absolute inset-0 bg-navy-dark/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                   {item.type === "video" && (
-                    <span className="absolute flex items-center justify-center w-14 h-14 rounded-full bg-white/90 text-navy shadow-lg group-hover:scale-110 transition-transform">
+                    <span className="absolute flex items-center justify-center w-14 h-14 rounded-full bg-white/90 text-navy shadow-lg scale-90 group-hover:scale-110 transition-transform duration-300">
                       <Play className="w-7 h-7 ml-1" fill="currentColor" />
                     </span>
                   )}
-                  <span className="text-primary-foreground font-display font-bold text-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="text-primary-foreground font-display font-bold text-lg translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                     {item.label}
                   </span>
                 </div>
