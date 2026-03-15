@@ -9,7 +9,31 @@ import heroSchool from "@/assets/hero-school.jpg";
 import heroImage1 from "@/assets/hero-image1.jpg";
 import heroImage2 from "@/assets/hero-image2.jpg";
 import heroImage3 from "@/assets/hero-image3.jpg";
-import heroClassroom from "@/assets/hero-classroom.jpg";
+
+import chulkanaDam from "@/assets/chulkanadam.jpg";
+import crmDance from "@/assets/crm-dance.jpg";
+import cultureEvent from "@/assets/culture event.jpg";
+import dance from "@/assets/dance.jpg";
+import dance1 from "@/assets/dance1.jpg";
+import dance2 from "@/assets/dance2.jpg";
+import dance7 from "@/assets/dance7.jpg";
+import events from "@/assets/events.jpg";
+import holi from "@/assets/holi.jpg";
+import holi5 from "@/assets/holi5.jpg";
+import newspaper from "@/assets/newspaper.jpg";
+import newspaper1 from "@/assets/newspaper1.jpg";
+import newspaper4 from "@/assets/newspaper4.jpg";
+import newspaper5 from "@/assets/newspaper5.jpg";
+import newpaper from "@/assets/newpaper.jpg";
+import principal1 from "@/assets/principal1.jpg";
+import sports1 from "@/assets/sports1.jpg";
+import sports2 from "@/assets/sports2.jpg";
+import sports3 from "@/assets/sports3.jpg";
+import sports6 from "@/assets/sports6.jpg";
+import sports7 from "@/assets/sports7.jpg";
+import toper1 from "@/assets/toper1.jpg";
+import topper from "@/assets/topper.jpg";
+import tree from "@/assets/tree.jpg";
 
 type GalleryImage = { type: "image"; src: string; label: string; category: string };
 type GalleryVideo = { type: "video"; src: string; label: string; category: string; videoUrl: string };
@@ -70,12 +94,42 @@ const SPORTS_IMAGES = [
 }));
 
 const items: GalleryItem[] = [
-  { type: "video", src: heroImage1, label: "Teachers' Day", category: "Events", videoUrl: TEACHERS_DAY_VIDEO_URL },
-  { type: "image", src: heroClassroom, label: "Classrooms", category: "Classrooms" },
-  { type: "image", src: heroImage1, label: "Annual Function", category: "Functions" },
+  { type: "image", src: chulkanaDam, label: "Chulkana Dham", category: "Trips" },
+  { type: "image", src: tree, label: "Tree Plantation", category: "Events" },
+  { type: "image", src: events, label: "School Events", category: "Events" },
+  { type: "image", src: holi, label: "Holi Celebration", category: "Events" },
+  { type: "image", src: holi5, label: "Holi Colors", category: "Events" },
+
+  // Teachers and Achievements
+  { type: "image", src: principal1, label: "Principal's Message", category: "Functions" },
+  { type: "image", src: toper1, label: "Our Topper", category: "Functions" },
+  { type: "image", src: topper, label: "School Toppers", category: "Functions" },
+
+  // Cultural
+  { type: "image", src: crmDance, label: "Cultural Dance", category: "Cultural" },
+  { type: "image", src: cultureEvent, label: "Cultural Event", category: "Cultural" },
+  { type: "image", src: dance, label: "Folk Dance", category: "Cultural" },
+  { type: "image", src: dance1, label: "Annual Dance", category: "Cultural" },
+  { type: "image", src: dance2, label: "Students Performing", category: "Cultural" },
+  { type: "image", src: dance7, label: "Stage Performance", category: "Cultural" },
+
+  // Sports
+  { type: "image", src: sports1, label: "Sports Competition", category: "Sports" },
+  { type: "image", src: sports2, label: "Athletics", category: "Sports" },
+  { type: "image", src: sports3, label: "Team Event", category: "Sports" },
+  { type: "image", src: sports6, label: "Sports Winners", category: "Sports" },
+  { type: "image", src: sports7, label: "Sports Activities", category: "Sports" },
   { type: "video", src: heroImage2, label: "Glimpse of Sports Day", category: "Sports", videoUrl: SPORTS_DAY_VIDEO_URL },
   ...SPORTS_IMAGES,
-  { type: "image", src: heroImage3, label: "Educational Trip", category: "Trips" },
+
+  // News & Media
+  { type: "image", src: newspaper, label: "In the News", category: "News" },
+  { type: "image", src: newspaper1, label: "Media Coverage", category: "News" },
+  { type: "image", src: newspaper4, label: "Press Release", category: "News" },
+  { type: "image", src: newspaper5, label: "News Achievement", category: "News" },
+  { type: "image", src: newpaper, label: "School Highlights", category: "News" },
+
+  // Legacy
   ...PRATAPGARH_FARMS_IMAGES,
   ...SCIENCE_FAIR_IMAGES,
   { type: "image", src: heroSchool, label: "Campus View", category: "Campus" },
@@ -84,18 +138,19 @@ const items: GalleryItem[] = [
 
 const TABS = [
   { id: "all", label: "All" },
-  { id: "Classrooms", label: "Classrooms" },
-  { id: "Functions", label: "Annual Functions" },
   { id: "Sports", label: "Sports" },
+  { id: "Cultural", label: "Cultural Events" },
+  { id: "News", label: "News & Media" },
+  { id: "Functions", label: "Annual Functions" },
+  { id: "Events", label: "Events" },
   { id: "Trips", label: "Trips" },
   { id: "Science Fair", label: "Science Fair" },
-  { id: "Cultural", label: "Cultural Events" },
 ] as const;
 
 const GallerySection = () => {
   const [lightbox, setLightbox] = useState<string | null>(null);
   const [videoModal, setVideoModal] = useState<{ url: string; title: string } | null>(null);
-  const [activeTab, setActiveTab] = useState<string>("all");
+  const [activeTab, setActiveTab] = useState<string>("Sports");
 
   const filteredItems =
     activeTab === "all" ? items : items.filter((item) => item.category === activeTab);
@@ -123,8 +178,8 @@ const GallerySection = () => {
               type="button"
               onClick={() => setActiveTab(tab.id)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${activeTab === tab.id
-                  ? "gold-gradient text-accent-foreground shadow-md"
-                  : "bg-card border border-border text-foreground hover:border-gold/50 hover:text-gold"
+                ? "gold-gradient text-accent-foreground shadow-md"
+                : "bg-card border border-border text-foreground hover:border-gold/50 hover:text-gold"
                 }`}
             >
               {tab.label}

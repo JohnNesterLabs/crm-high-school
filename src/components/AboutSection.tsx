@@ -3,6 +3,8 @@ import { ScrollReveal } from "@/hooks/useScrollReveal";
 import TiltCard from "@/components/TiltCard";
 import { GraduationCap, Users, BookOpen, Building2 } from "lucide-react";
 
+import aboutCover from "@/assets/crm-dance.jpg";
+
 const stats = [
   { icon: GraduationCap, label: "Years of Excellence", value: 37 },
   { icon: Users, label: "Students Enrolled", value: 1200 },
@@ -84,7 +86,7 @@ const AboutSection = () => {
             <TiltCard className="relative" glareColor="hsl(var(--gold))" tiltDeg={6}>
               <div className="rounded-2xl overflow-hidden shadow-2xl border-4 border-gold/30">
                 <img
-                  src="/placeholder.svg"
+                  src={aboutCover}
                   alt="CRM High School Campus"
                   className="w-full h-80 object-cover"
                   loading="lazy"
