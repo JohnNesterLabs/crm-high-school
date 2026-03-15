@@ -113,6 +113,45 @@ const AboutSection = () => {
             </ScrollReveal>
           ))}
         </div>
+
+        {/* Why Choose CRM Section */}
+        <div className="mt-24 max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <ScrollReveal animation="blur-in">
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-navy mb-4">
+                WHY CHOOSE <span className="text-gold">CRM</span>??
+              </h2>
+              <div className="w-24 h-1 bg-gold mx-auto rounded-full" />
+            </ScrollReveal>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-x-8 gap-y-4">
+            {[
+              "OUTSTANDING BOARD RESULTS (DISTRICT TOPPER IN CLASS 10).",
+              "100/100 Marks in Different Subjects in Board Exams (Maths, Science, S.st, Sanskrit)",
+              "SCIENCE & COMPUTER LABS WITH MODERN EQUIPMENT.",
+              "ABACUS & VEDIC MATHEMATICS.",
+              "IDEAL STUDENT-TEACHER RATIO.",
+              "GUEST LECTURES & SEMINAR FOR STUDENTS.",
+              "SPECIAL EXTRA CLASSES FOR BOARD EXAMS.",
+              "REGULAR UNIT BASED TESTS.",
+              "CCTV CAMERA SURVEILLANCE.",
+              "TRANSPORT FACILITIES IN NEARBY AREAS.",
+              "NEW STUDENTS ARE ADMITTED ONLY ON ENTRANCE TEST BASIS."
+            ].map((feature, i) => (
+              <ScrollReveal key={i} animation="fade-up" delay={i * 40}>
+                <div className="flex items-start gap-4 p-4 rounded-xl hover:bg-white/50 transition-colors border border-transparent hover:border-gold/20 shadow-sm hover:shadow-md">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full gold-gradient flex items-center justify-center mt-0.5 shadow-sm">
+                    <span className="text-accent-foreground">✓</span>
+                  </div>
+                  <p className="font-semibold text-navy/90 text-[15px] leading-relaxed flex-1">
+                    {feature}
+                  </p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
